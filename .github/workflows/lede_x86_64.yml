@@ -10,17 +10,18 @@
 # See /LICENSE for more information.
 #
 
-name: Template OpenWrt Builder
+name: LEDE x86_64
 
 on:
   repository_dispatch:
+    types: [LEDE Source Code Update]
   workflow_dispatch:
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
+  CONFIG_FILE: lede_x86_64.config
   BANNER_FILE: banner
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh

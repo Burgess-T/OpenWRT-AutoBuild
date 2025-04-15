@@ -10,10 +10,11 @@
 # See /LICENSE for more information.
 #
 
-name: Cudy-TR3000 OpenWrt Builder
+name: LEDE Cudy TR3000
 
 on:
   repository_dispatch:
+    types: [LEDE Source Code Update]
   workflow_dispatch:
 
 env:

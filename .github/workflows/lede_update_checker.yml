@@ -10,7 +10,7 @@
 # See /LICENSE for more information.
 #
 
-name: Update Checker
+name: LEDE Update Checker
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -19,7 +19,7 @@ env:
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 4 * * 1/2
+    - cron: 0 20 * * 0
 
 jobs:
   check:
@@ -50,7 +50,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ github.token }}
-        event-type: Source Code Update
+        event-type: LEDE Source Code Update
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
