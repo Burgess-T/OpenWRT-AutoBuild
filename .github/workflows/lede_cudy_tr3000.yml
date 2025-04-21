@@ -20,7 +20,7 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  DEVICE_NAME: Cudy TR3000
+  DEVICE_NAME: LEDE Cudy TR3000
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: lede_cudy_tr3000.config
   BANNER_FILE: banner
