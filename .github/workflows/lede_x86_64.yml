@@ -60,11 +60,11 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Cache
-      uses: Burgess-T/OpenWRT-AutoBuildCache@main
-      with:
-        ccache: 'true'
-        prefix: /workdir/openwrt
+    # - name: Cache
+    #   uses: Burgess-T/OpenWRT-AutoBuildCache@main
+    #   with:
+    #     ccache: 'true'
+    #     prefix: /workdir/openwrt
 
     - name: Load custom feeds
       run: |
