@@ -8,9 +8,9 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  CONFIG_FILE: lede_x86_64.config
+  CONFIG_FILE: configs/lede_x86_64.config
   BANNER_FILE: banner
-  DIY_SCRIPT: diy-part1.sh
+  DIY_SCRIPT: diy-script.sh
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
