@@ -1,7 +1,8 @@
 name: delete old workflows
 
 on:
-  schedule: [cron: 0 20 * * 1]
+  repository_dispatch:
+    types: [Remove Old Workflows]
   workflow_dispatch:
 
     inputs:
