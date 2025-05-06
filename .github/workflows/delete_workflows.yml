@@ -1,8 +1,8 @@
 name: Delete Old Workflows
 
 on:
-  repository_dispatch:
-    types: [Remove Old Workflows]
+  schedule:
+    - cron: 0 23 * * 0
   workflow_dispatch:
 
     inputs:
