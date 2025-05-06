@@ -74,12 +74,10 @@ jobs:
       - name: Delete releases and workflows runs
         uses: ophub/delete-releases-workflows@main
         with:
-          delete_releases: ${{ github.event.inputs.delete_releases }}
-          delete_tags: ${{ github.event.inputs.delete_tags }}
-          releases_keep_latest: ${{ github.event.inputs.releases_keep_latest }}
-          releases_keep_keyword: ${{ github.event.inputs.releases_keep_keyword }}
-          delete_workflows: ${{ github.event.inputs.delete_workflows }}
-          workflows_keep_day: ${{ github.event.inputs.workflows_keep_day }}
-          workflows_keep_keyword: ${{ github.event.inputs.workflows_keep_keyword }}
-          out_log: ${{ github.event.inputs.out_log }}
+          delete_releases: true
+          delete_tags: false
+          releases_keep_latest: 5
+          delete_workflows: true
+          workflows_keep_day: 7
+          out_log: true
           gh_token: ${{ secrets.GITHUB_TOKEN }}
