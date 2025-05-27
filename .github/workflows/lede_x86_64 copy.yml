@@ -8,7 +8,7 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  CONFIG_FILE: configs/lede_x86_64.config
+  CONFIG_FILE: "configs/lede_x86_64.config"
   BANNER_FILE: banner
   DIY_SCRIPT: diy-script.sh
   CACHE_TOOLCHAIN: false
@@ -80,6 +80,7 @@ jobs:
       run: |
         cp $CONFIG_FILE $OPENWRT_PATH/.config
         cd $OPENWRT_PATH
+        cat .config | grep lucky
         make defconfig > /dev/null 2>&1
         SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
         echo "SOURCE_REPO=$SOURCE_REPO" >> $GITHUB_ENV
@@ -109,7 +110,7 @@ jobs:
         cd $OPENWRT_PATH
         make defconfig
         [ -e files ] && mv files $OPENWRT_PATH/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
+        mv $CONFIG_FILE $OPENWRT_PATH/.config
         [ -e $BANNER_FILE ] && mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
         $GITHUB_WORKSPACE/$DIY_SCRIPT
         cat .config | grep lucky
@@ -117,7 +118,7 @@ jobs:
     - name: Download DL Package
       run: |
         cd $OPENWRT_PATH
-        cat .config | grep lucky
+        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
