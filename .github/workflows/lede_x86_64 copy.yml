@@ -107,14 +107,17 @@ jobs:
       run: |
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
+        make defconfig
         [ -e files ] && mv files $OPENWRT_PATH/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
         [ -e $BANNER_FILE ] && mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
         $GITHUB_WORKSPACE/$DIY_SCRIPT
+        cat .config | grep lucky
 
     - name: Download DL Package
       run: |
         cd $OPENWRT_PATH
+        cat .config | grep lucky
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
