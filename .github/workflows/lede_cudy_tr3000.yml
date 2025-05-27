@@ -96,20 +96,21 @@ jobs:
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
 
-    - name: Load Custom Configuration
-      run: |
-        [ -e files ] && mv files $OPENWRT_PATH/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
-        [ -e $BANNER_FILE ] && mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
-        chmod +x $DIY_SCRIPT
-        cd $OPENWRT_PATH
-        $GITHUB_WORKSPACE/$DIY_SCRIPT
-
     - name: Update and Install Feeds
       run: |
         cd $OPENWRT_PATH
+        sed -i '1i src-git Burgess https://github.com/Burgess-T/Burgess-Packages.git' feeds.conf.default
         ./scripts/feeds update -a
         ./scripts/feeds install -a
+
+    - name: Load Custom Configuration
+      run: |
+        [ -e files ] && mv files $OPENWRT_PATH/files
+        mv $CONFIG_FILE $OPENWRT_PATH/.config
+        mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
+        chmod +x $DIY_SCRIPT
+        cd $OPENWRT_PATH
+        $GITHUB_WORKSPACE/$DIY_SCRIPT
 
     - name: Download DL Package
       run: |
