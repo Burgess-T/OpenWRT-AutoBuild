@@ -108,11 +108,11 @@ jobs:
       run: |
         [ -e files ] && mv files $OPENWRT_PATH/files
         mv $CONFIG_FILE $OPENWRT_PATH/.config
-        [ -e $BANNER_FILE ] && mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
-        $GITHUB_WORKSPACE/$DIY_SCRIPT
+        mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
         cat .config | grep lucky
+        $GITHUB_WORKSPACE/$DIY_SCRIPT
 
     - name: Download DL Package
       run: |
