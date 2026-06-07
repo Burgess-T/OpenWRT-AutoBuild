@@ -107,7 +107,29 @@ jobs:
 
     - name: Load Custom Configuration
       run: |
-        [ -e files ] && mv files $OPENWRT_PATH/files
+        # 1. 如果仓库中已有 files 目录，先将其移入 openwrt 源码目录
+        if [ -e files ]; then
+          mv files $OPENWRT_PATH/files
+        fi
+        
+        # 2. 创建 uci-defaults 脚本，用于在首次启动时自动开启 WiFi 并设置 SSID 和 密码
+        mkdir -p $OPENWRT_PATH/files/etc/uci-defaults
+        cat > $OPENWRT_PATH/files/etc/uci-defaults/99-wifi << 'EOF'
+        #!/bin/sh
+        # 启用无线设备
+        uci set wireless.@wifi-device[0].disabled=0
+        # 启用第一个无线接口（通常是 2.4GHz）
+        uci set wireless.@wifi-iface[0].disabled=0
+        uci set wireless.@wifi-iface[0].ssid='Burgess'
+        uci set wireless.@wifi-iface[0].encryption='psk2'
+        uci set wireless.@wifi-iface[0].key='tr740927'
+        uci commit wireless
+        wifi
+        exit 0
+        EOF
+        chmod +x $OPENWRT_PATH/files/etc/uci-defaults/99-wifi
+        
+        # 3. 应用其他配置文件
         mv $CONFIG_FILE $OPENWRT_PATH/.config
         mv $BANNER_FILE $OPENWRT_PATH/package/base-files/files/etc/banner
         chmod +x $DIY_SCRIPT
